@@ -1,0 +1,388 @@
+/* 全局樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 標題區域 */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.current-player {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.current-player span {
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.current-player span.black {
+    background: linear-gradient(45deg, #2c3e50, #34495e);
+}
+
+.current-player span.white {
+    background: linear-gradient(45deg, #ecf0f1, #bdc3c7);
+    color: #2c3e50;
+}
+
+/* 按鈕樣式 */
+.btn {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+    box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 6px 20px rgba(149, 165, 166, 0.4);
+}
+
+.game-controls {
+    display: flex;
+    gap: 10px;
+}
+
+/* 主要遊戲區域 */
+main {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.game-board-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* 棋盤樣式 */
+.game-board {
+    background: #8B4513;
+    border: 3px solid #654321;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-columns: repeat(15, 30px);
+    grid-template-rows: repeat(15, 30px);
+    gap: 1px;
+    background-image: 
+        linear-gradient(to right, #654321 1px, transparent 1px),
+        linear-gradient(to bottom, #654321 1px, transparent 1px);
+    background-size: 31px 31px;
+    position: relative;
+}
+
+/* 棋盤交叉點 */
+.intersection {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+.intersection:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.intersection:hover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+/* 棋子樣式 */
+.piece {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    animation: dropIn 0.3s ease-out;
+}
+
+.piece.black {
+    background: radial-gradient(circle at 30% 30%, #555, #000);
+    border: 1px solid #333;
+}
+
+.piece.white {
+    background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+    border: 1px solid #999;
+}
+
+@keyframes dropIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* 遊戲規則區域 */
+.game-rules {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.game-rules h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.game-rules ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.game-rules li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ecf0f1;
+    color: #34495e;
+    position: relative;
+    padding-left: 20px;
+}
+
+.game-rules li:before {
+    content: '●';
+    color: #3498db;
+    position: absolute;
+    left: 0;
+    top: 8px;
+}
+
+.game-rules li:last-child {
+    border-bottom: none;
+}
+
+/* 模態框樣式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.modal-content p {
+    color: #34495e;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.modal-content ul {
+    text-align: left;
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.modal-content li {
+    color: #34495e;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.modal-content .btn {
+    margin: 10px;
+    min-width: 120px;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    main {
+        flex-direction: column;
+    }
+    
+    .game-board {
+        grid-template-columns: repeat(15, 25px);
+        grid-template-rows: repeat(15, 25px);
+        background-size: 26px 26px;
+        padding: 15px;
+    }
+    
+    .intersection {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .piece {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .game-rules {
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .modal-content {
+        margin: 20% auto;
+        padding: 20px;
+    }
+}
+
+/* 獲勝動畫 */
+.winner-animation {
+    animation: winnerPulse 1s ease-in-out infinite;
+}
+
+@keyframes winnerPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* 錯誤提示 */
+.error-message {
+    background: #e74c3c;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
